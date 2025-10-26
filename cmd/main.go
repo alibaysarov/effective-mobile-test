@@ -74,6 +74,10 @@ func main() {
 		api.GET("/subscriptions/total", subscribeController.GetSum)
 	}
 	PORT := os.Getenv("APP_PORT")
-
+	if PORT == "" {
+		PORT = "9001"
+		logger.Warn("APP_PORT not set, using default: 9001")
+	}
+	fmt.Printf("Starting server on port: %s\n", PORT)
 	router.Run(":" + PORT)
 }
