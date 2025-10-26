@@ -1,0 +1,244 @@
+basePath: /api/v1
+definitions:
+  effective-mobile_internal_dto.SubscriptionDto:
+    properties:
+      id:
+        type: string
+      price:
+        type: number
+      serviceName:
+        type: string
+      startDate:
+        type: string
+      userId:
+        type: string
+    type: object
+host: localhost:9001
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: API для сервиса подписок
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: EFFECTIVE MOBILE Subscription Service API
+  version: "1.0"
+paths:
+  /subscriptions:
+    get:
+      consumes:
+      - application/json
+      description: Получить список всех подписок
+      parameters:
+      - default: "null"
+        description: 'начало подписки от:'
+        in: query
+        name: start_date_from
+        type: string
+      - default: "null"
+        description: 'начало подписки до:'
+        in: query
+        name: start_date_to
+        type: string
+      - default: "null"
+        description: 'название сервиса:'
+        in: query
+        name: service_name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Список подписок
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить все подписки
+      tags:
+      - subscriptions
+    post:
+      consumes:
+      - application/json
+      description: Создать новую подписку с указанными данными
+      parameters:
+      - description: Данные подписки
+        in: body
+        name: subscription
+        required: true
+        schema:
+          $ref: '#/definitions/effective-mobile_internal_dto.SubscriptionDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Созданная подписка
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Ошибка валидации
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Внутренняя ошибка сервера
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Создать новую подписку
+      tags:
+      - subscriptions
+  /subscriptions/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удалить существующую подписку по ID
+      parameters:
+      - description: ID подписки
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Подписка успешно удалена
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Подписка не найдена
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Внутренняя ошибка сервера
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Удалить подписку
+      tags:
+      - subscriptions
+    get:
+      consumes:
+      - application/json
+      description: Получить данные одной подписки по указанному ID
+      parameters:
+      - description: ID подписки
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Данные подписки
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Подписка не найдена
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Внутренняя ошибка сервера
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Получить подписку по ID
+      tags:
+      - subscriptions
+    put:
+      consumes:
+      - application/json
+      description: Обновить данные существующей подписки по ID
+      parameters:
+      - description: ID подписки
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Обновленные данные подписки
+        in: body
+        name: subscription
+        required: true
+        schema:
+          $ref: '#/definitions/effective-mobile_internal_dto.SubscriptionDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Обновленная подписка
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Ошибка валидации
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Подписка не найдена
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Внутренняя ошибка сервера
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Обновить подписку
+      tags:
+      - subscriptions
+  /subscriptions/total:
+    get:
+      consumes:
+      - application/json
+      description: Получить список всех подписок
+      parameters:
+      - default: "null"
+        description: 'начало подписки от:'
+        in: query
+        name: start_date_from
+        type: string
+      - default: "null"
+        description: 'начало подписки до:'
+        in: query
+        name: start_date_to
+        type: string
+      - default: "null"
+        description: 'название сервиса:'
+        in: query
+        name: service_name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Сумма цен всех подписок
+          schema:
+            additionalProperties:
+              type: integer
+            type: object
+      summary: Получить сумму всех подписок
+      tags:
+      - subscriptions/total
+schemes:
+- http
+swagger: "2.0"
