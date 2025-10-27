@@ -192,4 +192,5 @@ func (cnt *SubscribeController) GetOne(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": row})
+	return
 }

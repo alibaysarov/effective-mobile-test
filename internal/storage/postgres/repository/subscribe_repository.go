@@ -22,12 +22,12 @@ func NewSubscribeRepository(db *sql.DB) repository.SubscribeRepository {
 }
 
 func (r *subscribeRepository) GetOne(id string) (*model.Subscription, error) {
-	query := `SELECT id, service_name, price, user_id, start_date FROM subscriptions LIMIT 1`
+	query := `SELECT id, service_name, price, user_id, start_date FROM subscriptions WHERE id=$1 LIMIT 1`
 	var firstRow model.Subscription
-	if err := r.db.QueryRow(query).Scan(firstRow.ID,
-		firstRow.ServiceName,
-		firstRow.Price,
-		firstRow.UserId, firstRow.StartDate); err != nil {
+	if err := r.db.QueryRow(query, id).Scan(&firstRow.ID,
+		&firstRow.ServiceName,
+		&firstRow.Price,
+		&firstRow.UserId, &firstRow.StartDate); err != nil {
 		fmt.Println("error while fetching one subscription", err)
 		return nil, err
 	}
