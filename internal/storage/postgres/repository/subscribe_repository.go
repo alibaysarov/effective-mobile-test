@@ -120,7 +120,7 @@ func (r *subscribeRepository) GetAll(filter dto.Filter) (*[]model.Subscription, 
 
 func (r *subscribeRepository) GetSum(filter dto.Filter) (float64, error) {
 	var queryBuilder strings.Builder
-	queryBuilder.WriteString("SELECT COUNT(price) FROM subscriptions ")
+	queryBuilder.WriteString("SELECT SUM(price) FROM subscriptions ")
 	filterString, arguments, err := getFilterQuery(filter)
 	if err != nil {
 		return 0, err
