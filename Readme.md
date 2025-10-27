@@ -1,4 +1,5 @@
 ### Запуск проекта
+0. Миграции запускать через docker или Установить утилиту goose
 1. <pre>cp .env.example .env</pre>
 2. Проставить значения в .env
 3. <pre>docker compose up --build -d</pre>
